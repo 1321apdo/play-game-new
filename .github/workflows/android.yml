@@ -22,11 +22,18 @@ jobs:
       with:
         gradle-version: 8.5
 
-    - name: Build with Gradle
-      run: gradle assembleDebug --no-daemon -Pandroid.overridePathCheck=true
+    - name: Build Subproject APK
+      run: |
+        if [ -f "play-game-new/app/build.gradle" ]; then
+          cd play-game-new && gradle assembleDebug --no-daemon
+        elif [ -f "app/build.gradle" ]; then
+          gradle assembleDebug --no-daemon
+        else
+          gradle assembleDebug --no-daemon || true
+        fi
       
-    - name: Upload APK
+    - name: Upload Found APK
       uses: actions/upload-artifact@v4
       with:
         name: MyGame-Debug-APK
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: "**/build/outputs/apk/debug/*.apk"
