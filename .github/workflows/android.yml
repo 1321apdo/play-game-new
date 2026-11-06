@@ -22,15 +22,11 @@ jobs:
       with:
         gradle-version: 8.5
 
-    - name: Build Subproject APK
+    - name: Generate Wrapper and Build
       run: |
-        if [ -f "play-game-new/app/build.gradle" ]; then
-          cd play-game-new && gradle assembleDebug --no-daemon
-        elif [ -f "app/build.gradle" ]; then
-          gradle assembleDebug --no-daemon
-        else
-          gradle assembleDebug --no-daemon || true
-        fi
+        gradle wrapper
+        chmod +x gradlew
+        ./gradlew assembleDebug --no-daemon -Pandroid.overridePathCheck=true
       
     - name: Upload Found APK
       uses: actions/upload-artifact@v4
