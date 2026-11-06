@@ -1,7 +1,6 @@
 package com.apdo.game
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -27,10 +26,8 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        // توليد رقم عشوائي لبدء اللعبة الأصلية
         generateNewSecretNumber()
 
-        // تهيئة نظام إعلانات جوجل AdMob
         MobileAds.initialize(this) {
             loadBannerAd()
             loadRewardedAd()
@@ -40,7 +37,6 @@ class GameActivity : AppCompatActivity() {
         val btnCheck = findViewById<Button>(R.id.btnCheck)
         val btnWatchAd = findViewById<Button>(R.id.btn_watch_ad)
 
-        // منطق تخمين الأرقام بلغة كوتلين
         btnCheck.setOnClickListener {
             val valStr = inputNumber.text.toString()
             if (valStr.isNotEmpty()) {
@@ -56,7 +52,6 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        // زر مشاهدة الإعلان بمكافأة لمضاعفة الأرباح
         btnWatchAd.setOnClickListener {
             showRewardVideo()
         }
